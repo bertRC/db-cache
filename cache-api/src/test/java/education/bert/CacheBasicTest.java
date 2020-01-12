@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CacheTest {
+public class CacheBasicTest {
     private final Cache<Integer, String> cache = new CacheLruImpl<>(3);
 
     @Test
