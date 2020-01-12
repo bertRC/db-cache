@@ -1,16 +1,14 @@
 package education.bert;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class CacheLruImpl<K, V> implements Cache<K, V> {
     private int maxCacheSize;
     public static final int minimalCacheSize = 1;
     public static final int defaultCacheSize = 10;
 
-    private final ConcurrentHashMap<K, V> cacheMap;
-    private final ConcurrentLinkedQueue<K> cacheQueue;
+    private final HashMap<K, V> cacheMap;
+    private final LinkedList<K> cacheQueue;
 
     public CacheLruImpl(int maxCacheSize) {
         if (maxCacheSize < minimalCacheSize) {
@@ -18,8 +16,8 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
         }
         this.maxCacheSize = maxCacheSize;
 
-        cacheMap = new ConcurrentHashMap<>();
-        cacheQueue = new ConcurrentLinkedQueue<>();
+        cacheMap = new HashMap<>();
+        cacheQueue = new LinkedList<>();
     }
 
     public CacheLruImpl() {
