@@ -1,8 +1,6 @@
 package education.bert;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -63,6 +61,11 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
     @Override
     public Map<K, V> getMap() {
         return new HashMap<>(cacheMap);
+    }
+
+    @Override
+    public List<K> getKeys() {
+        return new ArrayList<>(cacheQueue);
     }
 
     private void kickOut() {

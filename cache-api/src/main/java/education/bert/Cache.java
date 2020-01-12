@@ -1,5 +1,6 @@
 package education.bert;
 
+import java.util.List;
 import java.util.Map;
 
 public interface Cache<K, V> {
@@ -10,4 +11,6 @@ public interface Cache<K, V> {
     V remove(K key);
 
     Map<K, V> getMap();
+
+    List<K> getKeys();
 }
