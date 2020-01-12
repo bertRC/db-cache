@@ -26,7 +26,7 @@ public class CacheConcurrentTest {
 //        expectedMap.put(0, "Value0");
 //        expectedMap.put(1, "Value1");
 //
-//        System.out.print(new Throwable().getStackTrace()[0].getMethodName() + ": ");
+//        System.out.print("putGetCollisionTest" + ": ");
 //        printProgress(0);
 //        for (int i = 0; i < 100_000; i++) {
 //            cache = new CacheLruImpl<>(3);
@@ -54,7 +54,7 @@ public class CacheConcurrentTest {
 //
 //    @Test
 //    public void updateDeleteCollisionTest() throws InterruptedException {
-//        System.out.print(new Throwable().getStackTrace()[0].getMethodName() + ": ");
+//        System.out.print("updateDeleteCollisionTest" + ": ");
 //        printProgress(0);
 //        for (int i = 0; i < 100_000; i++) {
 //            cache = new CacheLruImpl<>(3);
@@ -76,7 +76,7 @@ public class CacheConcurrentTest {
 //
 //    @Test
 //    public void breakingLimitCollisionTest() throws InterruptedException {
-//        System.out.print(new Throwable().getStackTrace()[0].getMethodName() + ": ");
+//        System.out.print("breakingLimitCollisionTest" + ": ");
 //        printProgress(0);
 //        for (int i = 0; i < 100_000; i++) {
 //            cache = new CacheLruImpl<>(3);
