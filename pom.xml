@@ -41,9 +41,10 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-<!--                            <includes>-->
-<!--                                <include>**/*Service.class</include>-->
-<!--                            </includes>-->
+                            <excludes>
+                                <exclude>**/*Model.class</exclude>
+                                <exclude>**/*Exception.class</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>CLASS</element>
@@ -65,9 +66,10 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-<!--                            <includes>-->
-<!--                                <include>**/*Service.class</include>-->
-<!--                            </includes>-->
+                            <excludes>
+                                <exclude>**/*Model.class</exclude>
+                                <exclude>**/*Exception.class</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
