@@ -1,6 +1,5 @@
 package education.bert;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -11,12 +10,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CacheTest {
-    private Cache<Integer, String> cache;
-
-    @BeforeEach
-    public void setup() {
-        cache = new CacheLruImpl<>(3);
-    }
+    private final Cache<Integer, String> cache = new CacheLruImpl<>(3);
 
     @Test
     public void shouldThrowIllegalArgumentExceptionTest() {
