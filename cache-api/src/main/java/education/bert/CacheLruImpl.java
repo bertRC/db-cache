@@ -2,6 +2,7 @@ package education.bert;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -13,11 +14,11 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
     private final ConcurrentHashMap<K, V> cacheMap;
     private final ConcurrentLinkedQueue<K> cacheQueue;
 
-    public CacheLruImpl(int cacheSize) {
-        if (cacheSize < minimalCacheSize) {
-            throw new IllegalArgumentException("cacheSize must not be less than minimalCacheSize (" + minimalCacheSize + ")");
+    public CacheLruImpl(int maxCacheSize) {
+        if (maxCacheSize < minimalCacheSize) {
+            throw new IllegalArgumentException("maxCacheSize must not be less than minimalCacheSize (" + minimalCacheSize + ")");
         }
-        this.maxCacheSize = cacheSize;
+        this.maxCacheSize = maxCacheSize;
 
         cacheMap = new ConcurrentHashMap<>();
         cacheQueue = new ConcurrentLinkedQueue<>();
@@ -65,9 +66,6 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
     }
 
     private void kickOut() {
-        K key = cacheQueue.poll();
-        if (key != null) {
-            cacheMap.remove(key);
-        }
+        cacheMap.remove(Objects.requireNonNull(cacheQueue.poll()));
     }
 }
