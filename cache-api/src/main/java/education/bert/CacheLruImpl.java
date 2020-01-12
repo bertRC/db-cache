@@ -27,7 +27,7 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V put(K key, V value) {
+    public synchronized V put(K key, V value) {
         if (key == null || value == null) {
             throw new NullPointerException();
         }
@@ -50,7 +50,7 @@ public class CacheLruImpl<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V remove(K key) {
+    public synchronized V remove(K key) {
         if (key == null) {
             throw new NullPointerException();
         }
