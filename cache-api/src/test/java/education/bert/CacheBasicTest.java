@@ -84,8 +84,7 @@ public class CacheBasicTest {
     @Test
     public void removeTest() {
         cache.put(0, "Value");
-        cache.remove(0);
-
+        assertEquals("Value", cache.remove(0));
         assertNull(cache.get(0));
     }
 }
