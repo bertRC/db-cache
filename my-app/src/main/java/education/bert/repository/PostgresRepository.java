@@ -27,12 +27,13 @@ public class PostgresRepository {
 
     public UserModel saveUser(UserModel user) {
         try {
+            UserModel result = new UserModel(user.getId(), user.getName());
             if (user.getId() == 0) {
                 int id = JdbcHelper.executeUpdateWithId(url, "INSERT INTO users(name) VALUES (?);", statement -> {
                     statement.setString(1, user.getName());
                     return statement;
                 });
-                user.setId(id);
+                result.setId(id);
             } else {
                 JdbcHelper.executeUpdate(url, "UPDATE users SET name = ? WHERE id = ?;", statement -> {
                     statement.setString(1, user.getName());
@@ -40,7 +41,7 @@ public class PostgresRepository {
                     return statement;
                 });
             }
-            return user;
+            return result;
         } catch (SQLException e) {
             throw new DataAccessException(e);
         }
