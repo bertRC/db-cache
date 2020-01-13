@@ -1,4 +1,4 @@
-package education.bert.repository;
+package education.bert.service;
 
 import education.bert.exception.DataAccessException;
 import education.bert.model.PostModel;
@@ -10,7 +10,7 @@ import education.bert.util.jdbc.SqlRunnable;
 import java.sql.SQLException;
 import java.util.Optional;
 
-public class PostgresRepository {
+public class ForumService {
     private String url;
 
     public void setUrl(String url) {
