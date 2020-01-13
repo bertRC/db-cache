@@ -60,4 +60,25 @@ public class PostgresRepository {
             throw new DataAccessException(e);
         }
     }
+
+    public void removeUser(int id) {
+        try {
+            JdbcHelper.executeUpdate(url, "DELETE FROM users WHERE id = ?;", statement -> {
+                statement.setInt(1, id);
+                return statement;
+            });
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    public int getUsersCount() {
+        try {
+            Optional<Integer> result = JdbcHelper.executeQueryForObject(url, "SELECT COUNT(*) AS cnt FROM users;",
+                    statement -> statement, resultSet -> resultSet.getInt("cnt"));
+            return result.orElse(0);
+        } catch (SQLException e) {
+            throw new DataAccessException(e);
+        }
+    }
 }
