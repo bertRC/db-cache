@@ -14,7 +14,7 @@ public class ForumServiceTest {
     private final ForumService service = new ForumService();
 
     {
-        service.setUrl(PostgresConfig.url);
+        service.setDbUrl(PostgresConfig.url);
     }
 
     @BeforeEach

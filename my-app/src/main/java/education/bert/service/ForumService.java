@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class ForumService {
-    private String url;
+    private String dbUrl;
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDbUrl(String dbUrl) {
+        this.dbUrl = dbUrl;
     }
 
     private void sqlRun(SqlRunnable runnable) {
@@ -36,10 +36,10 @@ public class ForumService {
     public void setup() {
         sqlRun(() ->
         {
-            JdbcHelper.executeUpdate(url, "DROP TABLE IF EXISTS users;");
-            JdbcHelper.executeUpdate(url, "DROP TABLE IF EXISTS posts;");
-            JdbcHelper.executeUpdate(url, "CREATE TABLE users (id SERIAL PRIMARY KEY, name TEXT NOT NULL);");
-            JdbcHelper.executeUpdate(url, "CREATE TABLE posts (id SERIAL PRIMARY KEY, postName TEXT NOT NULL, creatorId INTEGER);");
+            JdbcHelper.executeUpdate(dbUrl, "DROP TABLE IF EXISTS users;");
+            JdbcHelper.executeUpdate(dbUrl, "DROP TABLE IF EXISTS posts;");
+            JdbcHelper.executeUpdate(dbUrl, "CREATE TABLE users (id SERIAL PRIMARY KEY, name TEXT NOT NULL);");
+            JdbcHelper.executeUpdate(dbUrl, "CREATE TABLE posts (id SERIAL PRIMARY KEY, postName TEXT NOT NULL, creatorId INTEGER);");
         });
     }
 
@@ -48,13 +48,13 @@ public class ForumService {
         {
             UserModel result = new UserModel(user.getId(), user.getName());
             if (user.getId() == 0) {
-                int id = JdbcHelper.executeUpdateWithId(url, "INSERT INTO users(name) VALUES (?);", statement -> {
+                int id = JdbcHelper.executeUpdateWithId(dbUrl, "INSERT INTO users(name) VALUES (?);", statement -> {
                     statement.setString(1, user.getName());
                     return statement;
                 });
                 result.setId(id);
             } else {
-                JdbcHelper.executeUpdate(url, "UPDATE users SET name = ? WHERE id = ?;", statement -> {
+                JdbcHelper.executeUpdate(dbUrl, "UPDATE users SET name = ? WHERE id = ?;", statement -> {
                     statement.setString(1, user.getName());
                     statement.setInt(2, user.getId());
                     return statement;
@@ -66,7 +66,7 @@ public class ForumService {
 
     public Optional<UserModel> getUser(int id) {
         return sqlCall(() ->
-                JdbcHelper.executeQueryForObject(url, "SELECT id, name FROM users WHERE id = ?;", statement -> {
+                JdbcHelper.executeQueryForObject(dbUrl, "SELECT id, name FROM users WHERE id = ?;", statement -> {
                     statement.setInt(1, id);
                     return statement;
                 }, resultSet -> new UserModel(
@@ -78,7 +78,7 @@ public class ForumService {
 
     public void removeUser(int id) {
         sqlRun(() ->
-                JdbcHelper.executeUpdate(url, "DELETE FROM users WHERE id = ?;", statement -> {
+                JdbcHelper.executeUpdate(dbUrl, "DELETE FROM users WHERE id = ?;", statement -> {
                     statement.setInt(1, id);
                     return statement;
                 })
@@ -88,7 +88,7 @@ public class ForumService {
     public int getUsersCount() {
         return sqlCall(() ->
         {
-            Optional<Integer> result = JdbcHelper.executeQueryForObject(url, "SELECT COUNT(*) AS cnt FROM users;",
+            Optional<Integer> result = JdbcHelper.executeQueryForObject(dbUrl, "SELECT COUNT(*) AS cnt FROM users;",
                     statement -> statement, resultSet -> resultSet.getInt("cnt"));
             return result.orElse(0);
         });
@@ -99,7 +99,7 @@ public class ForumService {
         {
             PostModel result = new PostModel(post.getId(), post.getPostName(), post.getCreatorId());
             if (post.getId() == 0) {
-                int id = JdbcHelper.executeUpdateWithId(url, "INSERT INTO posts(postName, creatorId) VALUES (?, ?);",
+                int id = JdbcHelper.executeUpdateWithId(dbUrl, "INSERT INTO posts(postName, creatorId) VALUES (?, ?);",
                         statement -> {
                             statement.setString(1, post.getPostName());
                             statement.setInt(2, post.getCreatorId());
@@ -107,7 +107,7 @@ public class ForumService {
                         });
                 result.setId(id);
             } else {
-                JdbcHelper.executeUpdate(url, "UPDATE posts SET postName = ?, creatorId = ? WHERE id = ?;",
+                JdbcHelper.executeUpdate(dbUrl, "UPDATE posts SET postName = ?, creatorId = ? WHERE id = ?;",
                         statement -> {
                             statement.setString(1, post.getPostName());
                             statement.setInt(2, post.getCreatorId());
@@ -121,7 +121,7 @@ public class ForumService {
 
     public Optional<PostModel> getPost(int id) {
         return sqlCall(() ->
-                JdbcHelper.executeQueryForObject(url, "SELECT id, postName, creatorId FROM posts WHERE id = ?;", statement -> {
+                JdbcHelper.executeQueryForObject(dbUrl, "SELECT id, postName, creatorId FROM posts WHERE id = ?;", statement -> {
                     statement.setInt(1, id);
                     return statement;
                 }, resultSet -> new PostModel(
@@ -134,7 +134,7 @@ public class ForumService {
 
     public void removePost(int id) {
         sqlRun(() ->
-                JdbcHelper.executeUpdate(url, "DELETE FROM posts WHERE id = ?;", statement -> {
+                JdbcHelper.executeUpdate(dbUrl, "DELETE FROM posts WHERE id = ?;", statement -> {
                     statement.setInt(1, id);
                     return statement;
                 })
@@ -144,7 +144,7 @@ public class ForumService {
     public int getPostsCount() {
         return sqlCall(() ->
         {
-            Optional<Integer> result = JdbcHelper.executeQueryForObject(url, "SELECT COUNT(*) AS cnt FROM posts;",
+            Optional<Integer> result = JdbcHelper.executeQueryForObject(dbUrl, "SELECT COUNT(*) AS cnt FROM posts;",
                     statement -> statement, resultSet -> resultSet.getInt("cnt"));
             return result.orElse(0);
         });
@@ -153,7 +153,7 @@ public class ForumService {
     public int getPostsCountForCreator(int creatorId) {
         return sqlCall(() ->
         {
-            Optional<Integer> result = JdbcHelper.executeQueryForObject(url, "SELECT COUNT(*) AS cnt FROM posts WHERE creatorId = ?;",
+            Optional<Integer> result = JdbcHelper.executeQueryForObject(dbUrl, "SELECT COUNT(*) AS cnt FROM posts WHERE creatorId = ?;",
                     statement -> {
                         statement.setInt(1, creatorId);
                         return statement;
