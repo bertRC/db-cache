@@ -44,6 +44,7 @@
                             <excludes>
                                 <exclude>**/*Model.class</exclude>
                                 <exclude>**/*Exception.class</exclude>
+                                <exclude>**/*Config.class</exclude>
                             </excludes>
                             <rules>
                                 <rule>
@@ -69,6 +70,7 @@
                             <excludes>
                                 <exclude>**/*Model.class</exclude>
                                 <exclude>**/*Exception.class</exclude>
+                                <exclude>**/*Config.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>

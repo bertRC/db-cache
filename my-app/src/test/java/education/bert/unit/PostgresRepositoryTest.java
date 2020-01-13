@@ -1,5 +1,6 @@
 package education.bert.unit;
 
+import education.bert.PostgresConfig;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 import education.bert.repository.PostgresRepository;
@@ -11,11 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PostgresRepositoryTest {
     private final PostgresRepository repository = new PostgresRepository();
-    //    private final String url = "jdbc:postgresql://localhost:5432/travis_ci_test?user=postgres";
-    private final String url = "jdbc:postgresql://192.168.99.100:32768/postgres?user=postgres";
 
     {
-        repository.setUrl(url);
+        repository.setUrl(PostgresConfig.url);
     }
 
     @BeforeEach
