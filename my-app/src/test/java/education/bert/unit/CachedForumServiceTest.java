@@ -1,7 +1,7 @@
 package education.bert.unit;
 
 import education.bert.PostgresConfig;
-import education.bert.benchmark.AForumServiceBenchmark;
+import education.bert.benchmark.ForumServiceBenchmark;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 import education.bert.service.CachedForumService;
@@ -32,7 +32,7 @@ public class CachedForumServiceTest extends AForumServiceTest {
     @AfterAll
     static void benchmarkRunner() throws RunnerException {
         Options options = new OptionsBuilder()
-                .include(AForumServiceBenchmark.class.getSimpleName())
+                .include(ForumServiceBenchmark.class.getSimpleName())
                 .forks(1)
 //                .warmupIterations(10)
 //                .measurementIterations(10)
