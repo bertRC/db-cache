@@ -7,8 +7,7 @@ import education.bert.service.ForumService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ForumServiceTest {
     private final ForumService service = new ForumService();
@@ -63,10 +62,26 @@ public class ForumServiceTest {
     }
 
     @Test
+    public void updateNotExistedUserTest() {
+        UserModel user = new UserModel(1, "Vasiliy");
+        UserModel result = service.saveUser(user);
+        assertNull(result);
+        assertEquals(0, service.getUsersCount());
+    }
+
+    @Test
+    public void updateNotExistedPostTest() {
+        PostModel post = new PostModel(1, "Hello Friends", 1);
+        PostModel result = service.savePost(post);
+        assertNull(result);
+        assertEquals(0, service.getPostsCount());
+    }
+
+    @Test
     public void removeUserTest() {
         UserModel user = new UserModel(0, "Vasya");
         service.saveUser(user);
-        service.removeUser(1);
+        assertTrue(service.removeUser(1));
         assertFalse(service.getUser(1).isPresent());
     }
 
@@ -74,8 +89,20 @@ public class ForumServiceTest {
     public void removePostTest() {
         PostModel post = new PostModel(0, "Hello Friends", 1);
         service.savePost(post);
-        service.removePost(1);
+        assertTrue(service.removePost(1));
         assertFalse(service.getPost(1).isPresent());
+    }
+
+    @Test
+    public void removeNotExistedUserTest() {
+        assertFalse(service.getUser(1).isPresent());
+        assertFalse(service.removeUser(1));
+    }
+
+    @Test
+    public void removeNotExistedPostTest() {
+        assertFalse(service.getPost(1).isPresent());
+        assertFalse(service.removePost(1));
     }
 
     @Test
