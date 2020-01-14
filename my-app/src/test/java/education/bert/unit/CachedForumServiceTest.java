@@ -1,11 +1,17 @@
 package education.bert.unit;
 
 import education.bert.PostgresConfig;
+import education.bert.benchmark.AForumServiceBenchmark;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 import education.bert.service.CachedForumService;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.RunnerException;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +27,17 @@ public class CachedForumServiceTest extends AForumServiceTest {
     {
         service.setDbUrl(PostgresConfig.url);
         super.setService(service);
+    }
+
+    @AfterAll
+    static void benchmarkRunner() throws RunnerException {
+        Options options = new OptionsBuilder()
+                .include(AForumServiceBenchmark.class.getSimpleName())
+                .forks(1)
+//                .warmupIterations(10)
+//                .measurementIterations(10)
+                .build();
+        new Runner(options).run();
     }
 
     @BeforeEach
