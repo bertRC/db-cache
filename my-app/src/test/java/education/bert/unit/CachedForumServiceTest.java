@@ -194,4 +194,27 @@ public class CachedForumServiceTest extends AForumServiceTest {
         assertTrue(service.getCacheMap().isEmpty());
         assertTrue(service.getCacheKeys().isEmpty());
     }
+
+    @Test
+    public void cacheKickOutTest() {
+        UserModel user = new UserModel(0, "Vasya");
+        UserModel expectedUser = new UserModel(1, "Vasya");
+        PostModel post = new PostModel(0, "Hello Friends", 1);
+        PostModel expectedPost = new PostModel(1, "Hello Friends", 1);
+        Map<String, Object> expectedMap = new HashMap<>();
+        expectedMap.put("getPost(1)", expectedPost);
+        expectedMap.put("getUsersCount()", 1);
+        expectedMap.put("getPostsCount()", 1);
+        List<String> expectedKeys = Arrays.asList("getPost(1)", "getUsersCount()", "getPostsCount()");
+
+        service.saveUser(user);
+        service.savePost(post);
+        assertEquals(expectedUser, service.getUser(1));
+        assertEquals(expectedPost, service.getPost(1));
+        assertEquals(1, service.getUsersCount());
+        assertEquals(1, service.getPostsCount());
+
+        assertEquals(expectedMap, service.getCacheMap());
+        assertEquals(expectedKeys, service.getCacheKeys());
+    }
 }
