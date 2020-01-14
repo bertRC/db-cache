@@ -10,10 +10,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ForumServiceTest {
-    private final ForumService service = new ForumService();
+    private ForumService service = new ForumService();
 
     {
         service.setDbUrl(PostgresConfig.url);
+    }
+
+    public void setService(ForumService service) {
+        this.service = service;
     }
 
     @BeforeEach
