@@ -26,7 +26,7 @@ public class ForumServiceTest {
         UserModel user = new UserModel(0, "Vasya");
         UserModel expectedUser = new UserModel(1, "Vasya");
         assertEquals(expectedUser, service.saveUser(user));
-        assertEquals(expectedUser, service.getUser(1).orElse(null));
+        assertEquals(expectedUser, service.getUser(1));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ForumServiceTest {
         PostModel post = new PostModel(0, "Hello Friends", 1);
         PostModel expectedPost = new PostModel(1, "Hello Friends", 1);
         assertEquals(expectedPost, service.savePost(post));
-        assertEquals(expectedPost, service.getPost(1).orElse(null));
+        assertEquals(expectedPost, service.getPost(1));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ForumServiceTest {
         updatedUser.setName("Vasiliy");
 
         assertEquals(updatedUser, service.saveUser(updatedUser));
-        assertEquals(expectedUser, service.getUser(updatedUser.getId()).orElse(null));
+        assertEquals(expectedUser, service.getUser(updatedUser.getId()));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ForumServiceTest {
         updatedPost.setPostName("Hello Folks");
 
         assertEquals(updatedPost, service.savePost(updatedPost));
-        assertEquals(expectedPost, service.getPost(updatedPost.getId()).orElse(null));
+        assertEquals(expectedPost, service.getPost(updatedPost.getId()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ForumServiceTest {
         UserModel user = new UserModel(0, "Vasya");
         service.saveUser(user);
         assertTrue(service.removeUser(1));
-        assertFalse(service.getUser(1).isPresent());
+        assertNull(service.getUser(1));
     }
 
     @Test
@@ -90,18 +90,18 @@ public class ForumServiceTest {
         PostModel post = new PostModel(0, "Hello Friends", 1);
         service.savePost(post);
         assertTrue(service.removePost(1));
-        assertFalse(service.getPost(1).isPresent());
+        assertNull(service.getPost(1));
     }
 
     @Test
     public void removeNotExistedUserTest() {
-        assertFalse(service.getUser(1).isPresent());
+        assertNull(service.getUser(1));
         assertFalse(service.removeUser(1));
     }
 
     @Test
     public void removeNotExistedPostTest() {
-        assertFalse(service.getPost(1).isPresent());
+        assertNull(service.getPost(1));
         assertFalse(service.removePost(1));
     }
 

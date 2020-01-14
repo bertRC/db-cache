@@ -83,7 +83,7 @@ public class ForumService {
         );
     }
 
-    public Optional<UserModel> getUser(int id) {
+    public UserModel getUser(int id) {
         return sqlCall(() ->
                 JdbcHelper.executeQueryForObject(
                         dbUrl,
@@ -98,7 +98,7 @@ public class ForumService {
                                 resultSet.getString("name")
                         )
                 )
-        );
+        ).orElse(null);
     }
 
     public boolean removeUser(int id) {
@@ -165,7 +165,7 @@ public class ForumService {
         );
     }
 
-    public Optional<PostModel> getPost(int id) {
+    public PostModel getPost(int id) {
         return sqlCall(() ->
                 JdbcHelper.executeQueryForObject(
                         dbUrl,
@@ -181,7 +181,7 @@ public class ForumService {
                                 resultSet.getInt("creatorId")
                         )
                 )
-        );
+        ).orElse(null);
     }
 
     public boolean removePost(int id) {
