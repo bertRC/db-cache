@@ -29,19 +29,19 @@ public class Actions {
         service.savePost(new PostModel(0, "Happy New Year", 7));
     }
 
-    public static void doSomeInitialQueries(ForumService service) {
-        service.getUsersCount();
-        service.getPostsCount();
-        service.getPostsCountForCreator(2);
-        service.getUser(3);
-        service.getPost(6);
-    }
+//    public static void doSomeInitialQueries(ForumService service) {
+//        service.getUsersCount();
+//        service.getPostsCount();
+//        service.getPostsCountForCreator(2);
+//        service.getUser(3);
+//        service.getPost(6);
+//    }
 
     public static void addSomeNewPost(ForumService service) {
         service.savePost(new PostModel(0, "Wishes and Suggestions", 2));
     }
 
-    public static PostModel getMentionedPost(ForumService service) {
-        return service.getPost(6);
+    public static PostModel getSomePost(ForumService service) {
+        return service.getPost(9);
     }
 }
