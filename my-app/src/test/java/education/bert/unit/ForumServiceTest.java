@@ -136,7 +136,7 @@ public class ForumServiceTest {
     }
 
     @Test
-    public void getPostsCountForCreator() {
+    public void getPostsCountForCreatorTest() {
         service.savePost(new PostModel(0, "Hello Friends", 1));
         service.savePost(new PostModel(0, "Forum Rules", 2));
         service.savePost(new PostModel(0, "General Discussion", 1));
