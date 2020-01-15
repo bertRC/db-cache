@@ -26,7 +26,6 @@ public class ForumServiceBenchmark {
         public void setup() {
             service.setup();
             LoadTestScenarios.addSomeInitialData(service);
-//            Actions.doSomeInitialQueries(service);
         }
     }
 
@@ -43,7 +42,6 @@ public class ForumServiceBenchmark {
         public void setup() {
             service.setup(10);
             LoadTestScenarios.addSomeInitialData(service);
-//            Actions.doSomeInitialQueries(service);
         }
     }
 
