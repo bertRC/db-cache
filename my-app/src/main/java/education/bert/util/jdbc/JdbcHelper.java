@@ -4,9 +4,6 @@ import java.sql.*;
 import java.util.Optional;
 
 public class JdbcHelper {
-    private JdbcHelper() {
-    }
-
     public static int executeUpdate(String url, String sql) throws SQLException {
         try (
                 Connection connection = DriverManager.getConnection(url);
