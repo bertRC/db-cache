@@ -16,7 +16,7 @@
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
         <junit-jupiter.version>5.5.1</junit-jupiter.version>
-        <cache-api.version>1.0</cache-api.version>
+        <cache-api.version>1.0.1</cache-api.version>
         <org-openjdk-jmh.version>1.9.3</org-openjdk-jmh.version>
         <postgresql.version>42.2.5</postgresql.version>
     </properties>
