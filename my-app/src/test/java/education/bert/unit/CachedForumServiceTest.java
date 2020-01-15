@@ -34,6 +34,7 @@ public class CachedForumServiceTest extends AForumServiceTest {
         Options options = new OptionsBuilder()
                 .include(ForumServiceBenchmark.class.getSimpleName())
                 .forks(1)
+                .shouldFailOnError(true)
                 .build();
         new Runner(options).run();
     }
