@@ -1,7 +1,6 @@
 package education.bert.benchmark;
 
 import education.bert.PostgresConfig;
-import education.bert.model.PostModel;
 import education.bert.service.CachedForumService;
 import education.bert.service.ForumService;
 import org.openjdk.jmh.annotations.*;

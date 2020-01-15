@@ -29,10 +29,6 @@ public class LoadTestScenarios {
         service.savePost(new PostModel(0, "Happy New Year", 7));
     }
 
-    public static void addSomeNewPost(ForumService service) {
-        service.savePost(new PostModel(0, "Wishes and Suggestions", 2));
-    }
-
     public static PostModel getSomePost(ForumService service) {
         return service.getPost(9);
     }
