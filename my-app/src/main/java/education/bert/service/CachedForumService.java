@@ -1,7 +1,7 @@
 package education.bert.service;
 
 import education.bert.Cache;
-import education.bert.CacheLruImpl;
+import education.bert.CacheFIFOImpl;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 
@@ -18,12 +18,12 @@ public class CachedForumService extends ForumService {
 
     @Override
     public void setup() {
-        cache = new CacheLruImpl<>();
+        cache = new CacheFIFOImpl<>();
         super.setup();
     }
 
     public void setup(int maxCacheSize) {
-        cache = new CacheLruImpl<>(maxCacheSize);
+        cache = new CacheFIFOImpl<>(maxCacheSize);
         super.setup();
     }
 

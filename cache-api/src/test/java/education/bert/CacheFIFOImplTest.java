@@ -9,19 +9,19 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CacheBasicTest {
-    private final Cache<Integer, String> cache = new CacheLruImpl<>(3);
+public class CacheFIFOImplTest {
+    private final Cache<Integer, String> cache = new CacheFIFOImpl<>(3);
 
     @Test
     public void shouldThrowIllegalArgumentExceptionTest() {
         assertThrows(IllegalArgumentException.class, () ->
-                new CacheLruImpl<Integer, String>(CacheLruImpl.minimalCacheSize - 1)
+                new CacheFIFOImpl<Integer, String>(CacheFIFOImpl.minimalCacheSize - 1)
         );
     }
 
     @Test
     public void shouldThrowNullPointerExceptionTest() {
-        final Cache<Integer, String> defaultCache = new CacheLruImpl<>();
+        final Cache<Integer, String> defaultCache = new CacheFIFOImpl<>();
         assertThrows(NullPointerException.class, () -> defaultCache.put(null, "Some Value"));
         assertThrows(NullPointerException.class, () -> defaultCache.put(0, null));
         assertThrows(NullPointerException.class, () -> defaultCache.put(null, null));
