@@ -1,10 +1,10 @@
-package education.bert.benchmark.action;
+package education.bert.benchmark;
 
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 import education.bert.service.ForumService;
 
-public class Actions {
+public class LoadTestScenarios {
     public static void addSomeInitialData(ForumService service) {
         service.saveUser(new UserModel(0, "Vasya"));
         service.saveUser(new UserModel(0, "Petya"));

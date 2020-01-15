@@ -1,7 +1,6 @@
 package education.bert.benchmark;
 
 import education.bert.PostgresConfig;
-import education.bert.benchmark.action.Actions;
 import education.bert.model.PostModel;
 import education.bert.service.CachedForumService;
 import education.bert.service.ForumService;
@@ -26,7 +25,7 @@ public class ForumServiceBenchmark {
         @Setup(Level.Iteration)
         public void setup() {
             service.setup();
-            Actions.addSomeInitialData(service);
+            LoadTestScenarios.addSomeInitialData(service);
 //            Actions.doSomeInitialQueries(service);
         }
     }
@@ -43,7 +42,7 @@ public class ForumServiceBenchmark {
         @Setup(Level.Iteration)
         public void setup() {
             service.setup(10);
-            Actions.addSomeInitialData(service);
+            LoadTestScenarios.addSomeInitialData(service);
 //            Actions.doSomeInitialQueries(service);
         }
     }
@@ -60,13 +59,13 @@ public class ForumServiceBenchmark {
 
     @Benchmark
     public void getSomePost(ServiceState state, Blackhole blackhole) {
-        PostModel post = Actions.getSomePost(state.service);
+        PostModel post = LoadTestScenarios.getSomePost(state.service);
         blackhole.consume(post);
     }
 
     @Benchmark
     public void getSomePostCachedService(CachedServiceState state, Blackhole blackhole) {
-        PostModel post = Actions.getSomePost(state.service);
+        PostModel post = LoadTestScenarios.getSomePost(state.service);
         blackhole.consume(post);
     }
 }
