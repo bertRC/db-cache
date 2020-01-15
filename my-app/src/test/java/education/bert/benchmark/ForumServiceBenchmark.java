@@ -11,59 +11,32 @@ import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10)
+@State(Scope.Benchmark)
 public class ForumServiceBenchmark {
+    private ForumService service = new ForumService();
+    private CachedForumService cachedService = new CachedForumService();
 
-    @State(Scope.Benchmark)
-    public static class ServiceState {
-        public ForumService service = new ForumService();
-
-        @Setup(Level.Trial)
-        public void init() {
-            service.setDbUrl(PostgresConfig.url);
-        }
-
-        @Setup(Level.Iteration)
-        public void setup() {
-            service.setup();
-            LoadTestScenarios.addSomeInitialData(service);
-        }
+    @Setup(Level.Trial)
+    public void init() {
+        service.setDbUrl(PostgresConfig.url);
+        cachedService.setDbUrl(PostgresConfig.url);
     }
 
-    @State(Scope.Benchmark)
-    public static class CachedServiceState {
-        public CachedForumService service = new CachedForumService();
-
-        @Setup(Level.Trial)
-        public void init() {
-            service.setDbUrl(PostgresConfig.url);
-        }
-
-        @Setup(Level.Iteration)
-        public void setup() {
-            service.setup(10);
-            LoadTestScenarios.addSomeInitialData(service);
-        }
-    }
-
-//    @Benchmark
-//    public void addSomeNewPost(ServiceState state) {
-//        Actions.addSomeNewPost(state.service);
-//    }
-//
-//    @Benchmark
-//    public void addSomeNewPostCachedService(CachedServiceState state) {
-//        Actions.addSomeNewPost(state.service);
-//    }
-
-    @Benchmark
-    public void getSomePost(ServiceState state, Blackhole blackhole) {
-        PostModel post = LoadTestScenarios.getSomePost(state.service);
-        blackhole.consume(post);
+    @Setup(Level.Iteration)
+    public void setup() {
+        cachedService.setup(10);
+        LoadTestScenarios.addSomeInitialData(service);
     }
 
     @Benchmark
-    public void getSomePostCachedService(CachedServiceState state, Blackhole blackhole) {
-        PostModel post = LoadTestScenarios.getSomePost(state.service);
-        blackhole.consume(post);
+    public void getSomePost(Blackhole blackhole) {
+        blackhole.consume(LoadTestScenarios.getSomePost(service));
+    }
+
+    @Benchmark
+    public void getSomePostCachedService(Blackhole blackhole) {
+        blackhole.consume(LoadTestScenarios.getSomePost(cachedService));
     }
 }
