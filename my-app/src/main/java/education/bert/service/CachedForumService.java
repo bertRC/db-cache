@@ -1,7 +1,7 @@
 package education.bert.service;
 
 import education.bert.Cache;
-import education.bert.CacheFIFOImpl;
+import education.bert.CacheLinkedMapImpl;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 
@@ -10,12 +10,12 @@ public class CachedForumService extends ForumService {
 
     @Override
     public void setup() {
-        cache = new CacheFIFOImpl<>();
+        cache = new CacheLinkedMapImpl<>();
         super.setup();
     }
 
     public void setup(int maxCacheSize) {
-        cache = new CacheFIFOImpl<>(maxCacheSize);
+        cache = new CacheLinkedMapImpl<>(maxCacheSize);
         super.setup();
     }
 
