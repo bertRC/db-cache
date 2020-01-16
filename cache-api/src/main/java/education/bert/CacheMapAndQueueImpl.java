@@ -12,7 +12,7 @@ import java.util.Objects;
  *            SQL-queries).
  * @param <V> the type of cached values.
  */
-public class CacheFIFOImpl<K, V> implements Cache<K, V> {
+public class CacheMapAndQueueImpl<K, V> implements Cache<K, V> {
 
     /**
      * The maximum number of items to store specified by constructor.
@@ -44,7 +44,7 @@ public class CacheFIFOImpl<K, V> implements Cache<K, V> {
      *
      * @param maxCacheSize the maximum number of items to store.
      */
-    public CacheFIFOImpl(int maxCacheSize) {
+    public CacheMapAndQueueImpl(int maxCacheSize) {
         if (maxCacheSize < minimalCacheSize) {
             throw new IllegalArgumentException("maxCacheSize must not be less than minimalCacheSize (" + minimalCacheSize + ")");
         }
@@ -57,7 +57,7 @@ public class CacheFIFOImpl<K, V> implements Cache<K, V> {
     /**
      * Constructs a cache class and sets the default value for maxCacheSize.
      */
-    public CacheFIFOImpl() {
+    public CacheMapAndQueueImpl() {
         this(defaultCacheSize);
     }
 

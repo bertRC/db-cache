@@ -4,17 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CacheFIFOImplTest {
-    private final Cache<Integer, String> cache = new CacheFIFOImpl<>(3);
+public class CacheMapAndQueueImplTest {
+    private final Cache<Integer, String> cache = new CacheMapAndQueueImpl<>(3);
 
     @Test
     public void shouldThrowIllegalArgumentExceptionTest() {
-        assertThrows(IllegalArgumentException.class, () -> new CacheFIFOImpl<Integer, String>(0));
+        assertThrows(IllegalArgumentException.class, () -> new CacheMapAndQueueImpl<Integer, String>(0));
     }
 
     @Test
     public void shouldThrowNullPointerExceptionTest() {
-        final Cache<Integer, String> defaultCache = new CacheFIFOImpl<>();
+        final Cache<Integer, String> defaultCache = new CacheMapAndQueueImpl<>();
         assertThrows(NullPointerException.class, () -> defaultCache.put(null, "Some Value"));
         assertThrows(NullPointerException.class, () -> defaultCache.put(0, null));
         assertThrows(NullPointerException.class, () -> defaultCache.put(null, null));
@@ -26,8 +26,7 @@ public class CacheFIFOImplTest {
     public void putGetTest() {
         Integer key = 0;
         String value = "Value";
-        cache.put(key, value);
-
+        assertNull(cache.put(key, value));
         assertEquals(value, cache.get(key));
     }
 
