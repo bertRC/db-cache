@@ -49,6 +49,14 @@ public class ForumService {
         });
     }
 
+    public void dropTables() {
+        sqlRun(() ->
+        {
+            JdbcHelper.executeUpdate(dbUrl, "DROP TABLE IF EXISTS users;");
+            JdbcHelper.executeUpdate(dbUrl, "DROP TABLE IF EXISTS posts;");
+        });
+    }
+
     public UserModel saveUser(UserModel user) {
         return sqlCall(() ->
                 {
