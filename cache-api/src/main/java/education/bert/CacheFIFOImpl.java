@@ -1,6 +1,8 @@
 package education.bert;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * Cache Implementation based on First in first out (FIFO) cache replacement policy. This is the simplest implementation
@@ -111,26 +113,6 @@ public class CacheFIFOImpl<K, V> implements Cache<K, V> {
         }
         cacheQueue.remove(key);
         return cacheMap.remove(key);
-    }
-
-    /**
-     * Returns the entire collection of keys and values in Map format.
-     *
-     * @return the copy of cacheMap.
-     */
-    @Override
-    public Map<K, V> getMap() {
-        return new HashMap<>(cacheMap);
-    }
-
-    /**
-     * Returns the entire collection of keys in List format.
-     *
-     * @return the copy of cacheQueue.
-     */
-    @Override
-    public List<K> getKeys() {
-        return new ArrayList<>(cacheQueue);
     }
 
     /**
