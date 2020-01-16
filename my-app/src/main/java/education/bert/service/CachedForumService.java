@@ -5,16 +5,8 @@ import education.bert.CacheFIFOImpl;
 import education.bert.model.PostModel;
 import education.bert.model.UserModel;
 
-import java.util.List;
-import java.util.Map;
-
 public class CachedForumService extends ForumService {
     private Cache<String, Object> cache;
-
-    @Override
-    public void setDbUrl(String dbUrl) {
-        super.setDbUrl(dbUrl);
-    }
 
     @Override
     public void setup() {
@@ -133,14 +125,5 @@ public class CachedForumService extends ForumService {
             cache.put("getPostsCountForCreator(" + creatorId + ")", result);
         }
         return result;
-    }
-
-
-    public Map<String, Object> getCacheMap() {
-        return cache.getMap();
-    }
-
-    public List<String> getCacheKeys() {
-        return cache.getKeys();
     }
 }
