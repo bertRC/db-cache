@@ -10,13 +10,31 @@ import education.bert.util.jdbc.SqlRunnable;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Service class that provides read/write data from/to the database. This service implements a simplified model of an
+ * internet forum or social network.
+ */
 public class ForumService {
+
+    /**
+     * PostgreSQL database url.
+     */
     private String dbUrl;
 
+    /**
+     * DB url setter.
+     *
+     * @param dbUrl a url to be set.
+     */
     public void setDbUrl(String dbUrl) {
         this.dbUrl = dbUrl;
     }
 
+    /**
+     * The wrapper for code throwing SQLException. The SQLException is replaced by RuntimeException.
+     *
+     * @param runnable a SqlRunnable functional interface implementation that runs desired code.
+     */
     private void sqlRun(SqlRunnable runnable) {
         try {
             runnable.run();
@@ -25,6 +43,14 @@ public class ForumService {
         }
     }
 
+    /**
+     * The wrapper for code returning some value and throwing SQLException. The SQLException is replaced by
+     * RuntimeException.
+     *
+     * @param callable a SqlCallable functional interface implementation that calls some value from code.
+     * @param <V>      the type of value returning from the code.
+     * @return the same value that code returns.
+     */
     private <V> V sqlCall(SqlCallable<V> callable) {
         try {
             return callable.call();
@@ -33,6 +59,9 @@ public class ForumService {
         }
     }
 
+    /**
+     * Creates empty DB tables.
+     */
     public void setup() {
         sqlRun(() ->
         {
@@ -49,6 +78,9 @@ public class ForumService {
         });
     }
 
+    /**
+     * Drops DB tables.
+     */
     public void dropTables() {
         sqlRun(() ->
         {
@@ -57,6 +89,13 @@ public class ForumService {
         });
     }
 
+    /**
+     * Adds specified user to DB if {@code user.getId() == 0}, otherwise updates existing user.
+     *
+     * @param user user to be added or updated.
+     * @return either (1) the same user with updated id or (2) {@code null} if there is no user to update in the
+     * database.
+     */
     public UserModel saveUser(UserModel user) {
         return sqlCall(() ->
                 {
@@ -91,6 +130,12 @@ public class ForumService {
         );
     }
 
+    /**
+     * Returns user with specified id from DB.
+     *
+     * @param id id by which user is to be returned.
+     * @return user with specified id from DB.
+     */
     public UserModel getUser(int id) {
         return sqlCall(() ->
                 JdbcHelper.executeQueryForObject(
@@ -109,6 +154,12 @@ public class ForumService {
         ).orElse(null);
     }
 
+    /**
+     * Removes user with specified id from DB.
+     *
+     * @param id id by which user is to be removed.
+     * @return {@code true} if the user is successfully removed, otherwise {@code null}.
+     */
     public boolean removeUser(int id) {
         return sqlCall(() ->
                 0 != JdbcHelper.executeUpdate(
@@ -123,6 +174,11 @@ public class ForumService {
         );
     }
 
+    /**
+     * Returns the total number of users in the database.
+     *
+     * @return the total number of users in the database.
+     */
     public int getUsersCount() {
         return sqlCall(() ->
                 {
@@ -137,6 +193,13 @@ public class ForumService {
         );
     }
 
+    /**
+     * Adds specified post to DB if {@code post.getId() == 0}, otherwise updates existing post.
+     *
+     * @param post post to be added or updated.
+     * @return either (1) the same post with updated id or (2) {@code null} if there is no post to update in the
+     * database.
+     */
     public PostModel savePost(PostModel post) {
         return sqlCall(() ->
                 {
@@ -173,6 +236,12 @@ public class ForumService {
         );
     }
 
+    /**
+     * Returns post with specified id from DB.
+     *
+     * @param id id by which post is to be returned.
+     * @return post with specified id from DB.
+     */
     public PostModel getPost(int id) {
         return sqlCall(() ->
                 JdbcHelper.executeQueryForObject(
@@ -192,6 +261,12 @@ public class ForumService {
         ).orElse(null);
     }
 
+    /**
+     * Removes post with specified id from DB.
+     *
+     * @param id id by which post is to be removed.
+     * @return {@code true} if the post is successfully removed, otherwise {@code null}.
+     */
     public boolean removePost(int id) {
         return sqlCall(() ->
                 0 != JdbcHelper.executeUpdate(
@@ -206,6 +281,11 @@ public class ForumService {
         );
     }
 
+    /**
+     * Returns the total number of posts in the database.
+     *
+     * @return the total number of posts in the database.
+     */
     public int getPostsCount() {
         return sqlCall(() ->
                 {
@@ -220,6 +300,12 @@ public class ForumService {
         );
     }
 
+    /**
+     * Returns the number of posts for specified creator id.
+     *
+     * @param creatorId creator id for which number of posts is to be returned.
+     * @return the number of posts for specified creator id.
+     */
     public int getPostsCountForCreator(int creatorId) {
         return sqlCall(() ->
                 {

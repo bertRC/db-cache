@@ -5,7 +5,16 @@ import education.bert.model.UserModel;
 import education.bert.service.ForumService;
 import org.openjdk.jmh.infra.Blackhole;
 
+/**
+ * Utility class with some load test scenarios designed to test Forum services.
+ */
 public class LoadTestScenarios {
+
+    /**
+     * Adds some initial user and post data via specified service.
+     *
+     * @param service service with which requests are executed.
+     */
     public static void addSomeInitialData(ForumService service) {
         service.saveUser(new UserModel(0, "Vasya"));
         service.saveUser(new UserModel(0, "Petya"));
@@ -30,10 +39,22 @@ public class LoadTestScenarios {
         service.savePost(new PostModel(0, "Happy New Year", 7));
     }
 
+    /**
+     * Returns some post (in this case with id 9) using the specified service.
+     *
+     * @param service service with which request is executed.
+     * @return some post (in this case with id 9) using the specified service.
+     */
     public static PostModel getSomePost(ForumService service) {
         return service.getPost(9);
     }
 
+    /**
+     * Executes particular scenario with multiple reading/writing data.
+     *
+     * @param service   service with which requests are executed.
+     * @param blackhole JMH Blackhole object for consuming the queried data.
+     */
     public static void particularLoadTestScenario(ForumService service, Blackhole blackhole) {
         int usersCount = service.getUsersCount();
         int postsCount = service.getPostsCount();
@@ -69,6 +90,12 @@ public class LoadTestScenarios {
         blackhole.consume(postSix);
     }
 
+    /**
+     * Executes random test scenario with multiple reading/writing data.
+     *
+     * @param service   service with which requests are executed.
+     * @param blackhole JMH Blackhole object for consuming the queried data.
+     */
     public static void randomLoadTestScenario(ForumService service, Blackhole blackhole) {
         int usersCount = service.getUsersCount();
         int postsCount = service.getPostsCount();
