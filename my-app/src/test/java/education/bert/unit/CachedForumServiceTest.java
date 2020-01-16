@@ -54,7 +54,6 @@ public class CachedForumServiceTest extends AForumServiceTest {
 
         UserModel secondGetUser = service.getUser(1);
         assertEquals(expectedUser, secondGetUser);
-
     }
 
     @Test
