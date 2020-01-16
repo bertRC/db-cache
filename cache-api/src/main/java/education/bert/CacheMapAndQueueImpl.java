@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
- * Cache Implementation based on First in first out (FIFO) cache replacement policy. This is the simplest implementation
+ * Cache implementation based on First in first out (FIFO) cache replacement policy. This is the simplest implementation
  * using a HashMap and LinkedList collections.
  *
  * @param <K> the type of keys maintained by this cache. As a key it is supposed to use some type of queries (e.g.
