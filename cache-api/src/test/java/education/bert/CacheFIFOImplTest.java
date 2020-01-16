@@ -9,9 +9,7 @@ public class CacheFIFOImplTest {
 
     @Test
     public void shouldThrowIllegalArgumentExceptionTest() {
-        assertThrows(IllegalArgumentException.class, () ->
-                new CacheFIFOImpl<Integer, String>(CacheFIFOImpl.minimalCacheSize - 1)
-        );
+        assertThrows(IllegalArgumentException.class, () -> new CacheFIFOImpl<Integer, String>(0));
     }
 
     @Test
@@ -52,6 +50,9 @@ public class CacheFIFOImplTest {
         cache.put(2, "Value2");
         cache.put(3, "Value3");
 
+        assertEquals("Value1", cache.get(1));
+        assertEquals("Value2", cache.get(2));
+        assertEquals("Value3", cache.get(3));
         assertNull(cache.get(0));
     }
 
