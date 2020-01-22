@@ -58,7 +58,7 @@ public class ForumServiceBenchmark {
      */
     @Setup(Level.Iteration)
     public void setup() {
-        cachedService.setup(20);
+        cachedService.setup(50);
         LoadTestScenarios.addSomeInitialData(service);
     }
 
