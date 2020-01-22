@@ -109,7 +109,7 @@ public class ForumServiceBenchmark {
      *
      * @param blackhole JMH Blackhole object for consuming the queried data.
      */
-    @Threads(10)
+    @Threads(100)
     @Benchmark
     public void randomLoadTestScenario(Blackhole blackhole) {
         LoadTestScenarios.randomLoadTestScenario(service, blackhole);
@@ -120,7 +120,7 @@ public class ForumServiceBenchmark {
      *
      * @param blackhole JMH Blackhole object for consuming the queried data.
      */
-    @Threads(10)
+    @Threads(100)
     @Benchmark
     public void randomLoadTestScenarioCachedService(Blackhole blackhole) {
         LoadTestScenarios.randomLoadTestScenario(cachedService, blackhole);
